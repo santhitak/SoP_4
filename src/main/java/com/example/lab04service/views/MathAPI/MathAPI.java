@@ -4,6 +4,9 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Route("index")
 public class MathAPI extends VerticalLayout {
@@ -24,7 +27,8 @@ public class MathAPI extends VerticalLayout {
         setDefaultHorizontalComponentAlignment(Alignment.START);
     }
 
-    public double myPlus(double n1, double n2){
+    @RequestMapping("/plus/{n1}/{n2}")
+    public double myPlus(@PathVariable Double n1, @PathVariable Double n2){
         return n1+n2;
     }
 }
