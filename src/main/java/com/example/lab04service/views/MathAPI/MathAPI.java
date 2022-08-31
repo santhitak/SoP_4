@@ -1,26 +1,47 @@
 package com.example.lab04service.views.MathAPI;
 
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Route("index")
 public class MathAPI extends VerticalLayout {
-    private TextField n1, n2, n3;
-    private Button btnPlus, btnMinus, btn;
 
     public MathAPI(){
-        n1 = new TextField("Number 1");
-        n2 = new TextField("Number 2");
-        n3 = new TextField("Answer");
-        btnPlus = new Button("+");
-        btnMinus = new Button("-");
-        btn = new Button("Show names");
-        add(n1, n2, n3, btnPlus, btnMinus, btn);
+        FormLayout calculator = new FormLayout();
+        TextField n1 = new TextField("Number 1");
+        TextField n2 = new TextField("Number 2");
+        TextField n3 = new TextField("Answer");
+
+        FormLayout btnForm = new FormLayout();
+        Button btnPlus = new Button("+");
+        Button btnMinus = new Button("-");
+        Button btnMulti = new Button("x");
+        Button btnDivide = new Button("/");
+        Button btnMod = new Button("Mod");
+        Button btnMax = new Button("Max");
+
+        btnForm.add(btnPlus, btnMinus, btnMinus, btnMulti, btnDivide, btnMod, btnMax);
+
+        calculator.add(n1);
+        calculator.add(n2);
+        calculator.add(new Text("Operators"));
+        calculator.add(btnForm);
+        calculator.add(n3);
+
+        calculator.setResponsiveSteps(
+                new FormLayout.ResponsiveStep("0", 2),
+                new FormLayout.ResponsiveStep("500px", 1)
+        );
+
+        calculator.setColspan(btnForm, 2);
+
+        add(calculator);
 
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.START);
