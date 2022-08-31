@@ -31,4 +31,9 @@ public class MathAPI extends VerticalLayout {
     public double myPlus(@PathVariable Double n1, @PathVariable Double n2){
         return n1+n2;
     }
+
+    @RequestMapping("/minus/{n1}/{n2}")
+    public double myMinus(@PathVariable Double n1, @PathVariable Double n2){
+        return n1-n2;
+    }
 }
