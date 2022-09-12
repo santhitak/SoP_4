@@ -6,7 +6,6 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -38,7 +37,18 @@ public class MathView extends VerticalLayout {
         btnMulti.addClickListener(e -> Result("multi"));
         btnDivide.addClickListener(e -> Result("divide"));
         btnMod.addClickListener(e -> Result("mod"));
-        btnMax.addClickListener(e -> Result("max"));
+        btnMax.addClickListener(e -> {
+            int x = Integer.parseInt(n1.getValue());
+            int y = Integer.parseInt(n2.getValue());
+            String out = WebClient.create()
+                    .post()
+                    .uri("http://localhost:8080/max?n1=" + x + "&n2=" + y)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+
+            n3.setValue(out);
+        });
 
         btnForm.add(btnPlus, btnMinus, btnMinus, btnMulti, btnDivide, btnMod, btnMax);
         calculator.add(n1, n2, new Text("Operators"), btnForm, n3);

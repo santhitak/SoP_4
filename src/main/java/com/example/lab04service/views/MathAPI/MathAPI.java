@@ -1,8 +1,6 @@
 package com.example.lab04service.views.MathAPI;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MathAPI {
@@ -32,8 +30,8 @@ public class MathAPI {
         return n1%n2;
     }
 
-    @RequestMapping("/max/{n1}/{n2}")
-    public double myMax(@PathVariable("n1") Double n1, @PathVariable("n2") Double n2){
+    @RequestMapping(value = "/max", method = RequestMethod.POST)
+    public double myMax(@RequestParam("n1") Double n1, @RequestParam("n2") Double n2){
         return Math.max(n1, n2);
     }
 }
